@@ -1,0 +1,59 @@
+
+* {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+}
+
+body {
+	text-align: center;
+}
+
+header {
+	height: 100px;
+	background-color: blue;
+	width: 100%;
+}
+
+section {
+	height: 600px;
+	width: 100%;
+	background-color: yellow;
+}
+
+footer {
+	height: 50px;
+	position: fixed;
+	bottom: 50px;
+	background-color: red;
+	width: 100%;
+	text-align: center;
+}
+
+.input-msg {
+	width: 80%;
+	height: 30px;
+	resize: none;
+	padding: 5px;
+	font-size: 18px;
+	border: 1px solid #dddddd;
+}
+.my-msg {
+	background-color: green;
+	text-align: right;
+}
+
+.other-msg {
+	background-color: yellow;
+	text-align: left;
+}
+
+.join-msg {
+	background-color: blue;
+	text-align: center;
+}
+
+.join-msg {
+	background-color: gray;
+	text-align: center;
+}

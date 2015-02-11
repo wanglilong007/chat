@@ -13,5 +13,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "https://github.com/wanglilong007/jquery.git#~2.1.3"
+  }
 }

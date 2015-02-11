@@ -6,8 +6,13 @@ var io = require('socket.io')(server)
 app.use(express.static(__dirname + '/public'))
 
 io.on('connection', function(socket){
-	socket.on('connect', function(data){
+	socket.on('send msg', function(data){
 		console.log(data)
+		socket.broadcast.emit('new msg', data)
+	})
+	socket.on('new user', function(data){
+		console.log(data)
+		socket.broadcast.emit('user join', data)
 	})
 	console.log(socket.id)
 })
