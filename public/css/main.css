@@ -7,26 +7,35 @@
 
 body {
 	text-align: center;
+	width: 100%;
+	background-color: black;
+}
+
+.content {
+	width: 61%;
+	margin: 0 auto;
+
 }
 
 header {
-	height: 100px;
-	background-color: blue;
+	height: 50px;
+	background-color: black;
 	width: 100%;
 }
 
 section {
 	height: 600px;
 	width: 100%;
-	background-color: yellow;
+	overflow: auto;
+	background-color: black;
 }
 
 footer {
 	height: 50px;
 	position: fixed;
-	bottom: 50px;
-	background-color: red;
-	width: 100%;
+	bottom: 0px;
+	background-color: black;
+	width: 61%;
 	text-align: center;
 }
 
@@ -37,23 +46,33 @@ footer {
 	padding: 5px;
 	font-size: 18px;
 	border: 1px solid #dddddd;
+
 }
 .my-msg {
-	background-color: green;
+	background-color: #E9967A;
 	text-align: right;
+	word-wrap: break-word;
 }
 
 .other-msg {
-	background-color: yellow;
+	background-color: pink;
 	text-align: left;
 }
 
 .join-msg {
-	background-color: blue;
+	background-color: black;
+	color: white;
 	text-align: center;
 }
 
-.join-msg {
-	background-color: gray;
+.left-msg {
+	background-color: black;
+	color: red;
 	text-align: center;
+}
+
+.msg {
+	word-wrap: break-word;
+	padding: 10px;
+	margin: 2px 0 2px 0;
 }

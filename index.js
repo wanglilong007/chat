@@ -6,91 +6,104 @@ var io = require('socket.io')(server)
 app.use(express.static(__dirname + '/public'))
 
 function hotal(){
-	var rooms = [];
-	var room_number = 0;
+	this.rooms = [];
+	this.room_number = 0;
+}
 
-	this.add_room = function(room){
-		rooms.push(room);
-		room_number++;
+hotal.prototype.add_room = function(room){
+	this.rooms.push(room);
+	this.room_number++;
+}
+
+hotal.prototype.del_room = function() {
+	// body...
+}
+
+hotal.prototype.get_room_num = function(){
+	return this.rooms.length;
+}
+
+hotal.prototype.get_a_room = function(member, condition){
+	var unfull_room;
+
+	if (this.rooms.length == 0){
+		unfull_room = new room(this.room_number);
+		this.add_room(unfull_room);
+		console.log('no room')
+		return unfull_room;
 	}
 
-	this.del_room = function(room) {
-		// body...
-		rooms.pop(room);
-	}
-
-	this.get_room_num = function(){
-		return rooms.length;
-	}
-
-	this.get_a_unfull_room = function(){
-		var unfull_room;
-
-		if (rooms.length == 0){
-			unfull_room = new room(room_number);
-			this.add_room(unfull_room);
-			console.log('no room')
-			return unfull_room;
-		}
-
-		for (var i = rooms.length - 1; i >= 0; i--) {
-			if(!rooms[i].is_full(2)){
-				unfull_room = rooms[i];
+	if (typeof condition === 'function') {
+		for (var i = this.rooms.length - 1; i >= 0; i--) {
+			if(condition(member, this.rooms[i])){
+				unfull_room = this.rooms[i];
 				console.log('search a room')
 				break;
 			}		
 		};
-
-		if (i == -1) {
-			unfull_room = new room(room_number);
-			this.add_room(unfull_room);
-			console.log('do not searched a room')
-		};
-		return unfull_room;
+	} else {
+		return;
 	}
 
-	this.get_room_by_number = function (number) {
-		// body...
-		for (var i = rooms.length - 1; i >= 0; i--) {
-			if(rooms[i].room_number == number) {
-				console.log('room_number = ' + rooms[i].room_number)
-				return rooms[i];
-			}
-		};
-	}
+	if (i == -1) {
+		unfull_room = new room(this.room_number);
+		this.add_room(unfull_room);
+		console.log('do not searched a room')
+	};
+	return unfull_room;
+}
+
+function get_unfull_room (member, room) {
+	if (room.get_member_num() != 2)
+		return true;
+}
+
+function get_other_gender_room (member, room) {
+	if (room.get_member_num() == 1 && room.members[0].gender != member.gender)
+		return true;
+}
+
+function get_near_other_gender_room (member, room) {
+	if (get_other_gender_room(member, room) && abs(member.position - room.members[0].position) <= 1000)
+		return true;
+}
+
+hotal.prototype.get_room_by_number = function (number) {
+	// body...
+	for (var i = this.rooms.length - 1; i >= 0; i--) {
+		if(this.rooms[i].room_number == number) {
+			console.log('room_number = ' + this.rooms[i].room_number)
+			return this.rooms[i];
+		}
+	};
 }
 
 function room(room_number){
 	//this.hotal = hotal;
-	var members = [];
+	this.members = [];
 	this.room_number = room_number;
-	this.join_member = function(member){
-		members.push(member);
-		//room_number++;
-	}
+}
 
-	this.rm_member_by_socket_id = function(socket_id){
-		console.log('function socket_id = ' + socket_id);
-		var rm_member;
-		for (var i = members.length - 1; i >= 0; i--) {
-			if (members[i].socket_id == socket_id){
-				rm_member = members[i];
-				//delete members[i];
-				members.splice(i, 1);
-				return	rm_member;
-			}		
-		};
-		//members.pop(member);
-	}
+room.prototype.join_member = function(member){
+	this.members.push(member);
+}
 
-	this.get_member_num = function(){
-		return members.length;
-	}
+room.prototype.rm_member_by_socket_id = function(socket_id){
+	var rm_member;
+	for (var i = this.members.length - 1; i >= 0; i--) {
+		if (this.members[i].socket_id == socket_id){
+			//delete members[i];
+			return	this.members.splice(i, 1);
+		}		
+	};
+}
 
-	this.is_full = function(number){
-		//console.log(members.length)
-		return members.length == number;
-	}
+room.prototype.get_member_num = function(){
+	return this.members.length;
+}
+
+room.prototype.is_full = function(number){
+	return this.members.length == number;
 }
 
 function member (socket_id, name, age, gender) {
@@ -106,16 +119,16 @@ app_hotal = new hotal();
 io.on('connection', function(socket){
 	socket.on('send msg', function(data){
 		//console.log(data)
-		socket.to(socket.rooms[1]).emit('new msg', data)
+		socket.to(socket.room_id).emit('new msg', data)
 		console.log(socket.rooms)
 	})
 	socket.on('new user', function(data){
-		//console.log(data)
+		//每个人保存他对应的socketid，每个socket保存他所在的房间号
 		var member = data;
 		member.socket_id = socket.id;
-		var room = app_hotal.get_a_unfull_room();
+		var room = app_hotal.get_a_room(member, get_unfull_room);
 		var room_id = room.room_number.toString();
-		socket.join(room.room_number);
+		socket.join(room_id);
 		socket.room_id = room_id;
 		room.join_member(member);
 		socket.emit('user join', member.name)
@@ -125,22 +138,17 @@ io.on('connection', function(socket){
 
 	  // when the user disconnects.. perform this
     socket.on('disconnect', function () {
-    // remove the username from global usernames list
-    	console.log(socket.room_id)
+    	if (socket.room_id == undefined) return;
+
     	var room_number = socket.room_id;
     	var socket_id = socket.id
-    	console.log('socket_id = ' + socket_id)
-    	console.log('socket number = ' + room_number)
+    	//根据房间号，返回房间
     	var room = app_hotal.get_room_by_number(room_number);
-    	console.log('room searched result = ' + room.room_number)
+    	//根据socketid，从房间找到要离开的人
     	var member = room.rm_member_by_socket_id(socket_id);
-    	socket.to(room_number.toString()).emit('user left', member.name);
+    	//通知此人离开
+    	socket.to(room_number).emit('user left', member[0].name);
   	});
-	//console.log(socket.id)
-	//rooms.push(socket.id)
-
-	//console.log(data)
-	//console.log(socket.rooms)
 })
 
 server.listen(3000)

@@ -6,11 +6,18 @@
 		<link rel="stylesheet" type="text/css" href="css/main.css" />
 	</head>
 	<body>
-		<header>aaa</header>
-		<section class="msg-board">bbb</section>
-		<footer>
-			<textarea id="input-msg" class="input-msg"></textarea>
-			<button onclick="sendMsg()">Send</button>
-		</footer>	
+		<div class="content">
+			<header></header>
+			<section class="msg-board"></section>
+			<footer>
+				<textarea id="input-msg" class="input-msg" onkeydown="quickSendMsg()"></textarea>
+				<button onclick="sendMsg()">Send</button>
+			</footer>	
+		</div>
 	</body>
+
+	<script>
+		<div>
+		</div>
+	</script>
 </html>
