@@ -7,7 +7,7 @@ function connect(){
 	}while(name == '')
 
 	s = io();
-	s.emit('new user', name);
+	s.emit('new user', {name: name, sender: 0, age: 23});
 	listen();
 	getElements();
 }
