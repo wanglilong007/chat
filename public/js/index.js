@@ -1,9 +1,10 @@
 
 //var s;
+var input, board, total_number, room_number;
 //input = document.getElementById('input-msg');
 function connect(){
 	do{
-		var name = prompt('what is your name?').trim()
+		var name = prompt('随便起个名字').trim()
 	}while(name == '')
 
 	s = io();
@@ -16,32 +17,52 @@ function sendMsg(){
 	var msg = input.value.trim()
 	if (msg == '') return;
 	//alert(msg)
-	s.emit('send msg', msg);
+	var data = {};
+	data.msg = msg
+	s.emit('send msg', data);
 	input.value = '';
+	update_msg(data, 'my');
 	input.focus();
-	update_msg(msg, 'my');
 }
 
 function quickSendMsg (e) {
-	if (e.keyCode != 13) return;
+	var currKey = 0,e = e||event;
+　　 currKey=e.keyCode||e.which||e.charCode;
+　　 //var keyName = String.fromCharCode(currKey);
+　　 //alert("按键码: " + currKey + " 字符: " + keyName); 
+	if (currKey != 13) return;
     sendMsg();
 }
 
 function update_msg(content, msg_type){
 	var msg_block = document.createElement('div');
-	//var msg_item = document.createElement('span');
-	msg_block.innerHTML = content;
+	var msg_item = document.createElement('div');
+	//var msg = document.createTextNode(content.msg);
+	msg_item.innerHTML = content.msg;
 	//msg_block.appendChild(msg_item)
-	if(msg_type == 'my')
-		msg_block.className = 'my-msg msg'
-	else if(msg_type == 'other')
-		msg_block.className = 'other-msg msg'
-	else if(msg_type == 'join')
+	if(msg_type == 'my'){
+		msg_item.className = 'my-msg-item msg-item';
+		msg_block.className = 'msg'
+		msg_block.appendChild(msg_item);	
+	}
+	else if(msg_type == 'other'){
+		msg_item.className = 'other-msg-item msg-item';
+		msg_block.className = 'msg'
+		msg_block.appendChild(msg_item);
+	}	
+	else if(msg_type == 'join'){
+		msg_block.innerHTML = content.msg + ' 加入';
+		update_room_number(content.room_num)
 		msg_block.className = 'join-msg msg'
-	else if(msg_type == 'left')
+	}
+	else if(msg_type == 'left'){
+		msg_block.innerHTML = content.msg + ' 离开';
+		update_room_number(content.room_num)
 		msg_block.className = 'left-msg msg'
+	}		
 	board.appendChild(msg_block);
 	crtl_item_number();
+	board.scrollTop = board.scrollHeight;
 }
 
 function crtl_item_number()
@@ -54,6 +75,18 @@ function crtl_item_number()
 function getElements(){
 	board = document.getElementsByClassName('msg-board')[0];
 	input = document.getElementById('input-msg');
+	total_number = document.getElementById('total-number');
+	room_number = document.getElementById('room-number'); 
+}
+
+function update_online_number (data) {
+	// body...
+	total_number.innerHTML = data;
+}
+
+function update_room_number (data) {
+	// body...
+	room_number.innerHTML = data;
 }
 
 function listen(){
@@ -72,5 +105,10 @@ function listen(){
 		update_msg(data, 'left');	
 	});
 
+	s.on('number change', function(data){
+		//alert(data);
+		update_online_number(data);
+		//console.log(data);
+	});
 }
 window.onload = connect;

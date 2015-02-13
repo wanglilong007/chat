@@ -8,15 +8,12 @@ app.use(express.static(__dirname + '/public'))
 function hotal(){
 	this.rooms = [];
 	this.room_number = 0;
+	this.total_num = 0;
 }
 
 hotal.prototype.add_room = function(room){
 	this.rooms.push(room);
 	this.room_number++;
-}
-
-hotal.prototype.del_room = function() {
-	// body...
 }
 
 hotal.prototype.get_room_num = function(){
@@ -27,9 +24,9 @@ hotal.prototype.get_a_room = function(member, condition){
 	var unfull_room;
 
 	if (this.rooms.length == 0){
-		unfull_room = new room(this.room_number);
+		unfull_room = new room(this, this.room_number);
 		this.add_room(unfull_room);
-		console.log('no room')
+		console.log('no room, create a room')
 		return unfull_room;
 	}
 
@@ -37,7 +34,7 @@ hotal.prototype.get_a_room = function(member, condition){
 		for (var i = this.rooms.length - 1; i >= 0; i--) {
 			if(condition(member, this.rooms[i])){
 				unfull_room = this.rooms[i];
-				console.log('search a room')
+				console.log('search a room, join the room')
 				break;
 			}		
 		};
@@ -46,15 +43,15 @@ hotal.prototype.get_a_room = function(member, condition){
 	}
 
 	if (i == -1) {
-		unfull_room = new room(this.room_number);
+		unfull_room = new room(this, this.room_number);
 		this.add_room(unfull_room);
-		console.log('do not searched a room')
+		console.log('do not searched a room, create a new room')
 	};
 	return unfull_room;
 }
 
 function get_unfull_room (member, room) {
-	if (room.get_member_num() != 2)
+	if (room.get_member_num() < 2)
 		return true;
 }
 
@@ -78,21 +75,25 @@ hotal.prototype.get_room_by_number = function (number) {
 	};
 }
 
-function room(room_number){
-	//this.hotal = hotal;
+function room(hotal, room_number){
+	this.hotal = hotal;
 	this.members = [];
 	this.room_number = room_number;
 }
 
 room.prototype.join_member = function(member){
+	member.socket.room_id = this.room_number;
 	this.members.push(member);
+	this.hotal.total_num++;
+	member.socket.join(this.room_number.toString());
 }
 
 room.prototype.rm_member_by_socket_id = function(socket_id){
 	var rm_member;
 	for (var i = this.members.length - 1; i >= 0; i--) {
-		if (this.members[i].socket_id == socket_id){
+		if (this.members[i].socket.id == socket_id){
 			//delete members[i];
+			this.hotal.total_num--;
 			return	this.members.splice(i, 1);
 		}		
 	};
@@ -125,15 +126,24 @@ io.on('connection', function(socket){
 	socket.on('new user', function(data){
 		//每个人保存他对应的socketid，每个socket保存他所在的房间号
 		var member = data;
-		member.socket_id = socket.id;
+		//assign a unfull room
 		var room = app_hotal.get_a_room(member, get_unfull_room);
 		var room_id = room.room_number.toString();
-		socket.join(room_id);
-		socket.room_id = room_id;
+		// set socket as an attribute of this member
+		member.socket = socket;
+		//add the member to the room
 		room.join_member(member);
-		socket.emit('user join', member.name)
-		socket.to(room_id).emit('user join', member.name)
-		console.log(member)
+
+		member_info = {
+			msg: member.name,
+			room_num: room.get_member_num()
+		}
+
+		socket.emit('user join', member_info)
+		socket.to(room_id).emit('user join', member_info)
+		socket.emit('number change', app_hotal.total_num);
+		socket.broadcast.emit('number change', app_hotal.total_num);
+		console.log(member_info)
 	})
 
 	  // when the user disconnects.. perform this
@@ -147,7 +157,13 @@ io.on('connection', function(socket){
     	//根据socketid，从房间找到要离开的人
     	var member = room.rm_member_by_socket_id(socket_id);
     	//通知此人离开
-    	socket.to(room_number).emit('user left', member[0].name);
+    	member_info = {
+			msg: member[0].name,
+			room_num: room.get_member_num()
+		}
+    	socket.to(room_number).emit('user left', member_info);
+    	socket.emit('number change', app_hotal.total_num);
+    	socket.broadcast.emit('number change', app_hotal.total_num);
   	});
 })
 
