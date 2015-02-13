@@ -3,10 +3,9 @@
 var input, board, total_number, room_number;
 //input = document.getElementById('input-msg');
 function connect(){
-	do{
-		var name = prompt('随便起个名字').trim()
-	}while(name == '')
-
+	var name = prompt('随便起个名字');
+	if (name == null || name.trim() == '')
+		name = '无名'
 	s = io();
 	s.emit('new user', {name: name, gender: 0, age: 23});
 	listen();
