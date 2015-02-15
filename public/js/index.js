@@ -2,14 +2,20 @@
 //var s;
 var input, board, total_number, room_number;
 //input = document.getElementById('input-msg');
+
+function init (argument) {
+	document.onkeydown=quickSendMsg;
+	listen();
+	getElements();
+	input.focus();
+}
 function connect(){
 	var name = prompt('随便起个名字');
 	if (name == null || name.trim() == '')
 		name = '无名'
 	s = io();
 	s.emit('new user', {name: name, gender: 0, age: 23});
-	listen();
-	getElements();
+	init();
 }
 
 function sendMsg(){
@@ -25,8 +31,9 @@ function sendMsg(){
 }
 
 function quickSendMsg (e) {
-	var currKey = 0,e = e||event;
-　　 currKey=e.keyCode||e.which||e.charCode;
+	var currKey = 0;
+	var et = e || window.event ;
+　　 currKey=et.keyCode||et.which||et.charCode;
 　　 //var keyName = String.fromCharCode(currKey);
 　　 //alert("按键码: " + currKey + " 字符: " + keyName); 
 	if (currKey != 13) return;

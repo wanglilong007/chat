@@ -14,6 +14,7 @@ body {
 .content {
 	width: 61%;
 	margin: 0 auto;
+	position: relative;
 }
 
 header {
@@ -26,17 +27,20 @@ header {
 }
 
 section {
-	height: 610px;
+	height: 600px;
 	width: 100%;
 	overflow: auto;
 	background-color: black;
+	border: 2px solid white;
+	border-radius: 10px;
 }
 
 footer {
-	position: fixed;
-	bottom: 40px;
+	position: relative;
+	top: 10px;
+	left: 0px;
 	background-color: black;
-	width: 61%;
+	width: 100%;
 }
 
 .input-msg {
@@ -46,7 +50,7 @@ footer {
 	padding: 5px;
 	font-size: 18px;
 	border: 2px solid #dddddd;
-
+	height: 45px;
 }
 .my-msg {
 	text-align: right;
@@ -68,7 +72,7 @@ footer {
 
 .msg {
 	word-wrap: break-word;
-	margin: 2px 0 2px 0;
+	margin: 5px;
 	overflow: auto;
 	background-color: black;
 }
@@ -79,6 +83,7 @@ footer {
 	width: 55px;
 	background-color: blue;
 	border-radius: 10px;
+	color: white;
 }
 
 .my-msg-item {
