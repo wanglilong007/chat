@@ -33,6 +33,7 @@ section {
 	background-color: black;
 	border: 2px solid white;
 	border-radius: 10px;
+	padding: 5px;
 }
 
 footer {
@@ -41,16 +42,17 @@ footer {
 	left: 0px;
 	background-color: black;
 	width: 100%;
+	text-align: center;
 }
 
 .input-msg {
-	float: left;
-	width: 90%;
+	width: 100%;
 	resize: none;
 	padding: 5px;
 	font-size: 18px;
 	border: 2px solid #dddddd;
 	height: 45px;
+	border-radius: 10px;
 }
 .my-msg {
 	text-align: right;
@@ -78,7 +80,6 @@ footer {
 }
 
 .send {
-	float: right;
 	height: 55px;
 	width: 55px;
 	background-color: blue;
