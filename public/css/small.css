@@ -4,9 +4,7 @@
 		-webkit-text-size-adjust: none;
 	}
 	.content {
-		width: 100%;
+		width: 90%;
 		height: auto;
-		background-color: white;
-		text-align: center;
 	}
 }
