@@ -34,8 +34,8 @@ function quickSendMsg (e) {
 	var currKey = 0;
 	var et = e || window.event ;
 　　 currKey=et.keyCode||et.which||et.charCode;
-　　 //var keyName = String.fromCharCode(currKey);
-　　 //alert("按键码: " + currKey + " 字符: " + keyName); 
+　　 var keyName = String.fromCharCode(currKey);
+　　 alert("按键码: " + currKey + " 字符: " + keyName); 
 	if (currKey != 13) return;
     sendMsg();
 }
@@ -67,7 +67,7 @@ function update_msg(content, msg_type){
 		msg_block.className = 'left-msg msg'
 	}		
 	board.appendChild(msg_block);
-	crtl_item_number();
+	//crtl_item_number();
 	board.scrollTop = board.scrollHeight;
 }
 
