@@ -1,32 +1,3 @@
-@media screen and (max-width: 480px) {
-
-	html {
-		-webkit-text-size-adjust: none;
-	}
-	section {
-		width: 100%;
-		background-color: white;
-		text-align: center;
-	}
-	body {
-		text-align: center;
-		background-color: blue;
-	}
-}
-
-
-@media screen and (max-width: 600px) {
-
-	section {
-		width: 100%;
-		background-color: white;
-		text-align: center;
-	}
-	body {
-		text-align: center;
-		background-color: blue;
-	}
-}
 
 * {
 	margin: 0px;
