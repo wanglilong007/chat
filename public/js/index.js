@@ -35,7 +35,7 @@ function quickSendMsg (e) {
 	var et = e || window.event ;
 　　 currKey=et.keyCode||et.which||et.charCode;
 　　 var keyName = String.fromCharCode(currKey);
-　　 alert("按键码: " + currKey + " 字符: " + keyName); 
+　　 //alert("按键码: " + currKey + " 字符: " + keyName); 
 	if (currKey != 13) return;
     sendMsg();
 }
