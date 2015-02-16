@@ -121,7 +121,7 @@ io.on('connection', function(socket){
 	socket.on('send msg', function(data){
 		//console.log(data)
 		socket.to(socket.room_id).emit('new msg', data)
-		console.log(socket.rooms)
+		//console.log(socket.rooms)
 	})
 	socket.on('new user', function(data){
 		//每个人保存他对应的socketid，每个socket保存他所在的房间号
@@ -143,22 +143,22 @@ io.on('connection', function(socket){
 		socket.to(room_id).emit('user join', member_info)
 		socket.emit('number change', app_hotal.total_num);
 		socket.broadcast.emit('number change', app_hotal.total_num);
-		console.log(member_info)
+		//console.log(member_info)
 	})
 
 	  // when the user disconnects.. perform this
     socket.on('disconnect', function () {
     	if (socket.room_id == undefined) return;
-    	console.log('disconnect')
+    	//console.log('disconnect')
 
     	var room_number = socket.room_id;
     	var socket_id = socket.id
     	//根据房间号，返回房间
     	var room = app_hotal.get_room_by_number(room_number);
-    	console.log('searched the room')
+    	//console.log('searched the room')
     	//根据socketid，从房间找到要离开的人
     	var member = room.rm_member_by_socket_id(socket_id);
-    	console.log('removed the person')
+    	//console.log('removed the person')
     	//通知此人离开
     	member_info = {
 			msg: member[0].name,
@@ -167,7 +167,7 @@ io.on('connection', function(socket){
     	socket.to(room_number).emit('user left', member_info);
     	socket.emit('number change', app_hotal.total_num);
     	socket.broadcast.emit('number change', app_hotal.total_num);
-    	console.log('emited leave')
+    	//console.log('emited leave')
   	});
 })
 

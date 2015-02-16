@@ -34,7 +34,6 @@ section {
 	background-color: black;
 	border: 2px solid white;
 	border-radius: 10px;
-	padding: 5px;
 }
 
 footer {
@@ -47,9 +46,9 @@ footer {
 }
 
 .input-msg {
-	width: 100%;
+	width: 96%;
 	resize: none;
-	padding: 5px;
+	padding: 2%;
 	font-size: 18px;
 	border: 2px solid #dddddd;
 	height: 45px;
