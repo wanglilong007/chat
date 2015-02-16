@@ -1,0 +1,138 @@
+@media screen and (max-width: 480px) {
+
+	html {
+		-webkit-text-size-adjust: none;
+	}
+	section {
+		width: 100%;
+		background-color: white;
+		text-align: center;
+	}
+	body {
+		text-align: center;
+		background-color: blue;
+	}
+}
+
+
+@media screen and (max-width: 600px) {
+
+	section {
+		width: 100%;
+		background-color: white;
+		text-align: center;
+	}
+	body {
+		text-align: center;
+		background-color: blue;
+	}
+}
+
+* {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+}
+
+body {
+	text-align: center;
+	width: 100%;
+	background-color: black;
+}
+
+.content {
+	width: 61%;
+	margin: 0 auto;
+	position: relative;
+}
+
+header {
+	height: 50px;
+	background-color: black;
+	width: 100%;
+	color: white;
+	text-align: right;
+	margin-top: 10px;
+}
+
+section {
+	height: 600px;
+	width: 100%;
+	overflow: auto;
+	background-color: black;
+	border: 2px solid white;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+footer {
+	position: relative;
+	top: 10px;
+	left: 0px;
+	background-color: black;
+	width: 100%;
+	text-align: center;
+}
+
+.input-msg {
+	width: 100%;
+	resize: none;
+	padding: 5px;
+	font-size: 18px;
+	border: 2px solid #dddddd;
+	height: 45px;
+	border-radius: 10px;
+}
+.my-msg {
+	text-align: right;
+}
+
+.other-msg {
+	text-align: left;
+}
+
+.join-msg {
+	color: white;
+	text-align: center;
+}
+
+.left-msg {
+	color: red;
+	text-align: center;
+}
+
+.msg {
+	word-wrap: break-word;
+	margin: 5px;
+	overflow: auto;
+	background-color: black;
+}
+
+.send {
+	height: 55px;
+	width: 55px;
+	background-color: blue;
+	border-radius: 10px;
+	color: white;
+}
+
+.my-msg-item {
+	float: right;
+	background-color: #E9967A;
+}
+
+.other-msg-item {
+	float: left;
+	background-color: pink;
+}
+
+.msg-item {
+	border-radius: 10px;
+	display: inline-block;
+	padding: 8px;
+	word-wrap: break-word;
+	max-width: 90%;
+	text-align: left;
+	overflow: auto;
+}
+
