@@ -3,8 +3,16 @@
 	html {
 		-webkit-text-size-adjust: none;
 	}
+
+	body {
+		text-align: center;
+		background-color: black;
+	}
 	.content {
 		width: 90%;
 		height: auto;
+	}
+	section {
+		height: 450px;
 	}
 }
