@@ -43,9 +43,9 @@ function quickSendMsg (e) {
 function update_msg(content, msg_type){
 	var msg_block = document.createElement('div');
 	var msg_item = document.createElement('div');
-	//var msg = document.createTextNode(content.msg);
+	var msg = document.createTextNode(content.msg);
 	msg_item.innerHTML = content.msg;
-	//msg_block.appendChild(msg_item)
+	//msg_item.appendChild(msg)
 	if(msg_type == 'my'){
 		msg_item.className = 'my-msg-item msg-item';
 		msg_block.className = 'msg'
