@@ -6,13 +6,11 @@
 
 	body {
 		text-align: center;
+		height: 300px;
 		background-color: black;
 	}
 	.content {
 		width: 90%;
-		height: auto;
-	}
-	section {
-		height: 450px;
+		text-align: center;
 	}
 }
