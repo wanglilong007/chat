@@ -14,7 +14,6 @@ function connect(){
 	if (name == null || name.trim() == '')
 		name = '无名'
 	s = io();
-	pos = get_pos();
 	s.emit('new user', {name: name, gender: 0, age: 23, position: pos});
 	init();
 }
@@ -62,7 +61,7 @@ function update_msg(content, msg_type){
 		msg_block.appendChild(msg_item);
 	}	
 	else if(msg_type == 'join'){
-		msg_block.innerHTML = content.msg + ' ' + content.position + ' 加入';
+		msg_block.innerHTML = content.msg + ' 加入';
 		update_room_number(content.room_num)
 		msg_block.className = 'join-msg msg'
 	}
@@ -215,9 +214,7 @@ function geocoder(longitude, latitude) {
 	    //返回地址描述
 	    address = data.regeocode.formattedAddress;
 	    //console.log(address);
-	    alert(address);
+	    //alert(address);
 	}
-	alert(address)
-	return address;
 }
 window.onload = connect;
