@@ -11,6 +11,7 @@ function init (argument) {
 }
 function connect(){
 	var name = prompt('随便起个名字');
+	var pos = '';
 	if (name == null || name.trim() == '')
 		name = '无名'
 	s = io();
