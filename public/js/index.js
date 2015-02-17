@@ -191,7 +191,7 @@ function render_pos (argument) {
 function test_ajax () {
 	// body...
 	var ak = '?ak=G7n5tzw3PunoezFUy1yG6XR0';
-	var baidu_api = '&http://api.map.baidu.com/geocoder/v2/';
+	var baidu_api = 'http://api.map.baidu.com/geocoder/v2/';
 	var location= '&location=22.648018,114.058367';
 	alert(location);
 	var callback = '&callback=render_pos';
