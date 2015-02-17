@@ -28,8 +28,8 @@ function sendMsg(){
 	input.value = '';
 	update_msg(data, 'my');
 	input.focus();
-	geocoder();
-	test_ajax();
+	geocoder(114.058367, 22.648018);
+	//test_ajax();
 	get_pos();
 }
 
@@ -162,23 +162,8 @@ function showError (error) {
 
 function locationSuccess (position) {
 	// body...
-	var ak = '?ak=G7n5tzw3PunoezFUy1yG6XR0';
-	var baidu_api = '&http://api.map.baidu.com/geocoder/v2/';
 	var location= '&location=' + position.coords.latitude + ',' + position.coords.longitude;
-	alert(location);
-	var callback = '&callback=render_pos';
-	var url = baidu_api + ak + callback + location + '&output=json&pois=0'
-	//http://api.map.baidu.com/geocoder/v2/?ak=E4805d16520de693a3fe707cdc962045&callback=renderReverse&location=39.983424,116.322987&output=json&pois=1
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', url);
-	xhr.onreadystatechange = function () {
-		// body...
-		if (xhr.readystate === 4 && xhr.status === 200) {
-			console.log('seccess');
-			alert('seccess');
-		}
-	}
-	xhr.send(null);
+	geocoder(position.coords.longitude, position.coords.latitude);
 }
 
 function render_pos (argument) {
@@ -206,13 +191,13 @@ function test_ajax () {
 
 }
 
-function geocoder() {
+function geocoder(longitude, latitude) {
     var MGeocoder;
-    var lnglatXY = new AMap.LngLat(116.396574,39.992706);
+    var lnglatXY = new AMap.LngLat(longitude, latitude);
     //加载地理编码插件
     AMap.service(["AMap.Geocoder"], function() {        
         MGeocoder = new AMap.Geocoder({ 
-            radius: 500,
+            radius: 10,
             extensions: "all"
         });
         //逆地理编码
@@ -230,6 +215,7 @@ function geocoder() {
 	    //返回地址描述
 	    address = data.regeocode.formattedAddress;
 	    console.log(address);
+	    alert(address);
 	}
 
 }
