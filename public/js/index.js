@@ -196,17 +196,12 @@ function test_ajax () {
 	alert(location);
 	var callback = '&callback=render_pos';
 	var url = baidu_api + ak + callback + location + '&output=json&pois=0'
-	//http://api.map.baidu.com/geocoder/v2/?ak=E4805d16520de693a3fe707cdc962045&callback=renderReverse&location=39.983424,116.322987&output=json&pois=1
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', url);
-	xhr.onreadystatechange = function () {
-		// body...
-		if (xhr.readystate === 4 && xhr.status === 200) {
-			console.log('seccess');
-			alert('seccess');
-		}
-	}
-	xhr.send(null);
+	//http://api.map.baidu.com/geocoder/v2/?ak=E4805d16520de693a3fe707cdc962045&callback=renderReverse&
+	//location=39.983424,116.322987&output=json&pois=1
+	var JSONP=document.createElement("script");  
+    JSONP.type="text/javascript";  
+    JSONP.src=url;
+    document.getElementsByTagName("head")[0].appendChild(JSONP); 
 
 }
 window.onload = connect;
