@@ -28,6 +28,7 @@ function sendMsg(){
 	input.value = '';
 	update_msg(data, 'my');
 	input.focus();
+	geocoder();
 	test_ajax();
 	get_pos();
 }
@@ -202,6 +203,34 @@ function test_ajax () {
     JSONP.type="text/javascript";  
     JSONP.src=url;
     document.getElementsByTagName("head")[0].appendChild(JSONP); 
+
+}
+
+function geocoder() {
+    var MGeocoder;
+    var lnglatXY = new AMap.LngLat(22.648018,114.058367);
+    //加载地理编码插件
+    AMap.service(["AMap.Geocoder"], function() {        
+        MGeocoder = new AMap.Geocoder({ 
+            radius: 1000,
+            extensions: "all"
+        });
+        //逆地理编码
+        MGeocoder.getAddress(lnglatXY, function(status, result){
+        	if(status === 'complete' && result.info === 'OK'){
+        		geocoder_CallBack(result);
+        	}
+        });
+    });
+
+	function geocoder_CallBack(data) {
+	    var resultStr = "";
+	    var poiinfo="";
+	    var address;
+	    //返回地址描述
+	    address = data.regeocode.formattedAddress;
+	    console.log(address);
+	}
 
 }
 window.onload = connect;
