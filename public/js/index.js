@@ -52,11 +52,13 @@ function update_msg(content, msg_type){
 	if(msg_type == 'my'){
 		msg_item.className = 'my-msg-item msg-item';
 		msg_block.className = 'msg'
+		msg_item.appendChild(msg)
 		msg_block.appendChild(msg_item);	
 	}
 	else if(msg_type == 'other'){
 		msg_item.className = 'other-msg-item msg-item';
 		msg_block.className = 'msg'
+		msg_item.appendChild(msg)
 		msg_block.appendChild(msg_item);
 	}	
 	else if(msg_type == 'join'){
@@ -69,7 +71,7 @@ function update_msg(content, msg_type){
 		update_room_number(content.room_num)
 		msg_block.className = 'left-msg msg'
 	}		
-	msg_item.appendChild(msg)
+
 	board.appendChild(msg_block);
 	//crtl_item_number();
 	board.scrollTop = board.scrollHeight;
@@ -213,8 +215,9 @@ function geocoder(longitude, latitude) {
 	    //返回地址描述
 	    address = data.regeocode.formattedAddress;
 	    //console.log(address);
-	    //alert(address);
+	    alert(address);
 	}
+	alert(address)
 	return address;
 }
 window.onload = connect;
