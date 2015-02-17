@@ -136,7 +136,8 @@ io.on('connection', function(socket){
 
 		member_info = {
 			msg: member.name,
-			room_num: room.get_member_num()
+			room_num: room.get_member_num(),
+			position: member.position
 		}
 
 		socket.emit('user join', member_info)

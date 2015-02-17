@@ -14,7 +14,8 @@ function connect(){
 	if (name == null || name.trim() == '')
 		name = '无名'
 	s = io();
-	s.emit('new user', {name: name, gender: 0, age: 23});
+	pos = get_pos();
+	s.emit('new user', {name: name, gender: 0, age: 23, position: pos});
 	init();
 }
 
@@ -28,9 +29,8 @@ function sendMsg(){
 	input.value = '';
 	update_msg(data, 'my');
 	input.focus();
-	geocoder(114.058367, 22.648018);
+	//geocoder(114.058367, 22.648018);
 	//test_ajax();
-	get_pos();
 }
 
 function quickSendMsg (e) {
@@ -48,7 +48,7 @@ function update_msg(content, msg_type){
 	var msg_item = document.createElement('div');
 	var msg = document.createTextNode(content.msg);
 	//msg_item.innerHTML = content.msg;
-	msg_item.appendChild(msg)
+	
 	if(msg_type == 'my'){
 		msg_item.className = 'my-msg-item msg-item';
 		msg_block.className = 'msg'
@@ -60,7 +60,7 @@ function update_msg(content, msg_type){
 		msg_block.appendChild(msg_item);
 	}	
 	else if(msg_type == 'join'){
-		msg_block.innerHTML = content.msg + ' 加入';
+		msg_block.innerHTML = content.msg + ' ' + content.position + ' 加入';
 		update_room_number(content.room_num)
 		msg_block.className = 'join-msg msg'
 	}
@@ -69,6 +69,7 @@ function update_msg(content, msg_type){
 		update_room_number(content.room_num)
 		msg_block.className = 'left-msg msg'
 	}		
+	msg_item.appendChild(msg)
 	board.appendChild(msg_block);
 	//crtl_item_number();
 	board.scrollTop = board.scrollHeight;
@@ -168,10 +169,7 @@ function locationSuccess (position) {
 
 function render_pos (argument) {
 	// body...
-	console.log('call back');
-	console.log(argument);
-	alert('callback');
-	alert(argument);
+
 }
 
 function test_ajax () {
@@ -193,6 +191,7 @@ function test_ajax () {
 
 function geocoder(longitude, latitude) {
     var MGeocoder;
+    var address;
     var lnglatXY = new AMap.LngLat(longitude, latitude);
     //加载地理编码插件
     AMap.service(["AMap.Geocoder"], function() {        
@@ -211,12 +210,11 @@ function geocoder(longitude, latitude) {
 	function geocoder_CallBack(data) {
 	    var resultStr = "";
 	    var poiinfo="";
-	    var address;
 	    //返回地址描述
 	    address = data.regeocode.formattedAddress;
-	    console.log(address);
-	    alert(address);
+	    //console.log(address);
+	    //alert(address);
 	}
-
+	return address;
 }
 window.onload = connect;
