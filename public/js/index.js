@@ -35,7 +35,7 @@ function quickSendMsg (e) {
 	var et = e || window.event ;
 　　 currKey=et.keyCode||et.which||et.charCode;
 　　 var keyName = String.fromCharCode(currKey);
-　　 //alert("按键码: " + currKey + " 字符: " + keyName); 
+　　 alert("按键码: " + currKey + " 字符: " + keyName); 
 	if (currKey != 13) return;
     sendMsg();
 }
@@ -44,8 +44,8 @@ function update_msg(content, msg_type){
 	var msg_block = document.createElement('div');
 	var msg_item = document.createElement('div');
 	var msg = document.createTextNode(content.msg);
-	msg_item.innerHTML = content.msg;
-	//msg_item.appendChild(msg)
+	//msg_item.innerHTML = content.msg;
+	msg_item.appendChild(msg)
 	if(msg_type == 'my'){
 		msg_item.className = 'my-msg-item msg-item';
 		msg_block.className = 'msg'
@@ -116,5 +116,56 @@ function listen(){
 		update_online_number(data);
 		//console.log(data);
 	});
+}
+
+function get_pos (argument) {
+	if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(locationSuccess, locationError,{
+	        // 指示浏览器获取高精度的位置，默认为false
+	        enableHighAcuracy: true,
+	        // 指定获取地理位置的超时时间，默认不限时，单位为毫秒
+	        timeout: 5000,
+	        // 最长有效期，在重复获取地理位置时，此参数指定多久再次获取位置。
+	        maximumAge: 3000
+		    });
+		}else{
+		    alert("Your browser does not support Geolocation!");
+	}
+}
+
+function locationError (error) {
+	// body...
+	switch(error.code) {
+        case error.TIMEOUT:
+            showError("A timeout occured! Please try again!");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            showError('We can\'t detect your location. Sorry!');
+            break;
+        case error.PERMISSION_DENIED:
+            showError('Please allow geolocation access for this to work.');
+            break;
+        case error.UNKNOWN_ERROR:
+            showError('An unknown error occured!');
+            break;
+    }
+}
+
+function locationSuccess (position) {
+	// body...
+	var ak = G7n5tzw3PunoezFUy1yG6XR0;
+	var baidu_api = 'http://api.map.baidu.com/geocoder/v2/?';
+	var location=position.coords.latitude+","+position.coords.longitude;
+	var callback = render_pos;
+	//http://api.map.baidu.com/geocoder/v2/?ak=E4805d16520de693a3fe707cdc962045&callback=renderReverse&location=39.983424,116.322987&output=json&pois=1
+	var xhr = new xmlHttpRequest();
+	xhr.open('GET', url);
+	xhr.onreadystatechange = function () {
+		// body...
+		if (xhr.readystate === 4 && xhr.status === 200) {
+
+		}
+	}
+	xhr.send(null);
 }
 window.onload = connect;
