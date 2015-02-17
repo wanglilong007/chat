@@ -16,4 +16,10 @@
 		height: auto;
 		max-height: 300px;
 	}
+	.input-msg {
+		width: 70%;
+	}
+	.send {
+		top: -23px;
+	}
 }

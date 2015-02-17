@@ -44,7 +44,7 @@ footer {
 }
 
 .input-msg {
-	width: 98%;
+	width: 88%;
 	resize: none;
 	padding: 1%;
 	font-size: 18px;
@@ -78,6 +78,9 @@ footer {
 }
 
 .send {
+    position: relative;
+	top: -28px;
+	left: 0px;
 	height: 55px;
 	width: 55px;
 	background-color: blue;
