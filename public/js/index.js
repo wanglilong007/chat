@@ -208,11 +208,11 @@ function test_ajax () {
 
 function geocoder() {
     var MGeocoder;
-    var lnglatXY = new AMap.LngLat(22.648018,114.058367);
+    var lnglatXY = new AMap.LngLat(116.396574,39.992706);
     //加载地理编码插件
     AMap.service(["AMap.Geocoder"], function() {        
         MGeocoder = new AMap.Geocoder({ 
-            radius: 1000,
+            radius: 500,
             extensions: "all"
         });
         //逆地理编码
