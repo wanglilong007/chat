@@ -166,7 +166,7 @@ function locationSuccess (position) {
 	var location= '&location=' + position.coords.latitude + ',' + position.coords.longitude;
 	alert(location);
 	var callback = '&callback=render_pos';
-	var url = baidu_api + ak + callback + position + '&output=json&pois=0'
+	var url = baidu_api + ak + callback + location + '&output=json&pois=0'
 	//http://api.map.baidu.com/geocoder/v2/?ak=E4805d16520de693a3fe707cdc962045&callback=renderReverse&location=39.983424,116.322987&output=json&pois=1
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url);
@@ -195,7 +195,7 @@ function test_ajax () {
 	var location= '&location=22.648018,114.058367';
 	alert(location);
 	var callback = '&callback=render_pos';
-	var url = baidu_api + ak + callback + position + '&output=json&pois=0'
+	var url = baidu_api + ak + callback + location + '&output=json&pois=0'
 	//http://api.map.baidu.com/geocoder/v2/?ak=E4805d16520de693a3fe707cdc962045&callback=renderReverse&location=39.983424,116.322987&output=json&pois=1
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url);
