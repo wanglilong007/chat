@@ -147,6 +147,13 @@ io.on('connection', function(socket){
 		//console.log(member_info)
 	})
 
+	socket.on('get position', function (data) {
+		// body...
+		socket.emit('position', data);
+		socket.to(room_id).emit('position', data)
+		console.log(data);
+	})
+
 	  // when the user disconnects.. perform this
     socket.on('disconnect', function () {
     	if (socket.room_id == undefined) return;

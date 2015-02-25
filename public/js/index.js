@@ -66,6 +66,10 @@ function update_msg(content, msg_type){
 		update_room_number(content.room_num)
 		msg_block.className = 'join-msg msg'
 	}
+	else if(msg_type == 'position'){
+		msg_block.innerHTML = '来自 ' + content.formatted_address;
+		msg_block.className = 'join-msg msg'
+	}
 	else if(msg_type == 'left'){
 		msg_block.innerHTML = content.msg + ' 离开';
 		update_room_number(content.room_num)
@@ -122,6 +126,11 @@ function listen(){
 		update_online_number(data);
 		//console.log(data);
 	});
+
+	s.on('position', function (data) {
+		// body...
+		update_msg(data, 'position');
+	})
 }
 
 function get_pos () {
@@ -166,21 +175,26 @@ function showError (error) {
 function locationSuccess (position) {
 	// body...
 	var location= '&location=' + position.coords.latitude + ',' + position.coords.longitude;
-	geocoder(position.coords.longitude, position.coords.latitude);
+	//geocoder(position.coords.longitude, position.coords.latitude);
+	alert(position);
+	test_ajax(location)
 }
 
-function render_pos (argument) {
+function render_pos (data) {
 	// body...
-	alert(argument);
-	console.log(argument);
+	//alert(argument);
+	console.log(data);
+	alert(data);
+	s.emit('get position', data);
 }
 
-function test_ajax () {
+function test_ajax (pos_str) {
 	// body...
 	var ak = '?ak=G7n5tzw3PunoezFUy1yG6XR0';
 	var baidu_api = 'http://api.map.baidu.com/geocoder/v2/';
-	var location= '&location=22.648018,114.058367';
-	alert(location);
+	//var location = '&location=22.648018,114.058367';
+	var location = pos_str;
+	//alert(location);
 	var callback = '&callback=render_pos';
 	var url = baidu_api + ak + callback + location + '&output=json&pois=0'
 	//http://api.map.baidu.com/geocoder/v2/?ak=E4805d16520de693a3fe707cdc962045&callback=renderReverse&
@@ -189,7 +203,6 @@ function test_ajax () {
     JSONP.type="text/javascript";  
     JSONP.src=url;
     document.getElementsByTagName("head")[0].appendChild(JSONP); 
-
 }
 
 function geocoder(longitude, latitude) {
