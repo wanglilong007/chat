@@ -143,7 +143,7 @@ function get_pos () {
 	});
 
 	// write data to request body
-	req.write(postData);
+	//req.write(postData);
 	req.end();
 }
 
