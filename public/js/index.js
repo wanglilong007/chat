@@ -218,6 +218,7 @@ function jsonp (url) {
 function get_pos_by_ip () {
 	//var url = 'http://api.map.baidu.com/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0';
 	//jsonp(url);
+	var data = {};
 	data.from = 'ip'
 	console.log(data);
 	//alert(data.result.formatted_address);

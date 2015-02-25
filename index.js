@@ -118,19 +118,33 @@ function member (socket_id, name, age, gender) {
 
 function get_pos () {
 	// body...
-	http.get('http://api.map.baidu.com/location/ip?ak=WBzEkGTlsHIkTmjesRWvlZwW&ip=120.24.62.105', function (res) {
-		// body...
-		  console.log('STATUS: ' + res.statusCode);
-		  console.log('HEADERS: ' + JSON.stringify(res.headers));
-		  res.setEncoding('utf8');
-		  res.on('data', function (chunk) {
-		    console.log('BODY: ' + chunk);
-		  });
-		//var address = {address: data.result.formatted_address}
-	}).on('error', function (e) {
-		// body...
-		console.log(e.message);
-	})
+	var options = {
+	  hostname: 'http://api.map.baidu.com',
+	  port: 80,
+	  path: '/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0',
+	  method: 'GET',
+	  headers: {
+	    'Content-Type': 'application/json',
+	    'Referer': 'http://120.24.62.105:3000/'
+	  }
+	};
+
+	var req = http.request(options, function(res) {
+	  console.log('STATUS: ' + res.statusCode);
+	  console.log('HEADERS: ' + JSON.stringify(res.headers));
+	  res.setEncoding('utf8');
+	  res.on('data', function (chunk) {
+	    console.log('BODY: ' + chunk);
+	  });
+	});
+
+	req.on('error', function(e) {
+	  console.log('problem with request: ' + e.message);
+	});
+
+	// write data to request body
+	req.write(postData);
+	req.end();
 }
 
 app_hotal = new hotal();
