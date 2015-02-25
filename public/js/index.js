@@ -178,7 +178,7 @@ function locationSuccess (position) {
 	// body...
 	var location= '&location=' + position.coords.latitude + ',' + position.coords.longitude;
 	//geocoder(position.coords.longitude, position.coords.latitude);
-	alert(location);
+	//alert(location);
 	test_ajax(location)
 }
 
@@ -186,7 +186,7 @@ function render_pos (data) {
 	// body...
 	//alert(argument);
 	console.log(data);
-	alert(data.result.formatted_address);
+	//alert(data.result.formatted_address);
 	s.emit('get position', data);
 }
 
@@ -201,7 +201,7 @@ function test_ajax (pos_str) {
 	var url = baidu_api + ak + callback + location + '&output=json&pois=0'
 	//http://api.map.baidu.com/geocoder/v2/?ak=E4805d16520de693a3fe707cdc962045&callback=renderReverse&
 	//location=39.983424,116.322987&output=json&pois=1
-	alert(url)
+	//alert(url)
 	var JSONP=document.createElement("script");  
     JSONP.type="text/javascript";  
     JSONP.src=url;
