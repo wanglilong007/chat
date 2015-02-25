@@ -186,6 +186,7 @@ function locationSuccess (position) {
 function render_pos (data) {
 	// body...
 	//alert(argument);
+	data.from = 'notip'
 	console.log(data);
 	//alert(data.result.formatted_address);
 	s.emit('get position', data);
@@ -215,8 +216,12 @@ function jsonp (url) {
 }
 
 function get_pos_by_ip () {
-	var url = 'http://api.map.baidu.com/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0&coor=bd09ll&callback=render_pos';
-	jsonp(url);
+	//var url = 'http://api.map.baidu.com/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0';
+	//jsonp(url);
+	data.from = 'ip'
+	console.log(data);
+	//alert(data.result.formatted_address);
+	s.emit('get position', data);
 }
 
 function geocoder(longitude, latitude) {

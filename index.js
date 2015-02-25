@@ -2,6 +2,7 @@ var express = require('express')
 var app = require('express')()
 var server = require('http').createServer(app)
 var io = require('socket.io')(server)
+var http = require('http');
 
 app.use(express.static(__dirname + '/public'))
 
@@ -115,6 +116,18 @@ function member (socket_id, name, age, gender) {
 	this.gender = gender;
 }
 
+function get_pos () {
+	// body...
+	http.get('http://api.map.baidu.com/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0', function (res) {
+		// body...
+		console.log(res);
+		//var address = {address: data.result.formatted_address}
+	}).on('error', function (e) {
+		// body...
+		console.log(e.message);
+	})
+}
+
 app_hotal = new hotal();
 
 io.on('connection', function(socket){
@@ -133,7 +146,7 @@ io.on('connection', function(socket){
 		member.socket = socket;
 		//add the member to the room
 		room.join_member(member);
-
+		console.log(socket);
 		member_info = {
 			msg: member.name,
 			room_num: room.get_member_num(),
@@ -145,14 +158,23 @@ io.on('connection', function(socket){
 		socket.emit('number change', app_hotal.total_num);
 		socket.broadcast.emit('number change', app_hotal.total_num);
 		//console.log(member_info)
+		get_pos();
 	})
 
 	socket.on('get position', function (data) {
 		// body...
-		if (data.address == undefined)
-			var address = {address: data.result.formatted_address}
+		if (data.from == 'ip') {
+			http.get('http://api.map.baidu.com/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0', function (res) {
+				// body...
+				console.log(res);
+				//var address = {address: data.result.formatted_address}
+			}).on('error', function (e) {
+				// body...
+				console.log(e.message);
+			})
+		}	
 		else
-			var address = {address: data.address}
+			var address = {address: data.result.formatted_address}
 		socket.emit('position', address);
 		socket.to(socket.room_id).emit('position', address)
 		console.log(address);
