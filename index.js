@@ -200,6 +200,7 @@ io.on('connection', function(socket){
 			  res.setEncoding('utf8');
 			  res.on('data', function (chunk) {
 			    console.log('BODY: ' + chunk);
+			    console.log(chunk.address);
 			    var address = {address: chunk.address}
 				socket.emit('position', address);
 				socket.to(socket.room_id).emit('position', address)
