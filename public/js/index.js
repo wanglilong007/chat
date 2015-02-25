@@ -30,7 +30,7 @@ function sendMsg(){
 	update_msg(data, 'my');
 	input.focus();
 	//geocoder(114.058367, 22.648018);
-	//test_ajax();
+	test_ajax();
 }
 
 function quickSendMsg (e) {
@@ -171,7 +171,8 @@ function locationSuccess (position) {
 
 function render_pos (argument) {
 	// body...
-
+	alert(argument);
+	console.log(argument);
 }
 
 function test_ajax () {
