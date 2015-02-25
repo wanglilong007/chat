@@ -119,7 +119,7 @@ function member (socket_id, name, age, gender) {
 function get_pos () {
 	// body...
 	var options = {
-	  hostname: 'http://api.map.baidu.com',
+	  hostname: 'api.map.baidu.com',
 	  port: 80,
 	  path: '/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0',
 	  method: 'GET',
