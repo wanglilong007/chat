@@ -149,9 +149,13 @@ io.on('connection', function(socket){
 
 	socket.on('get position', function (data) {
 		// body...
-		socket.emit('position', data);
-		socket.to(socket.room_id).emit('position', data)
-		console.log(data);
+		if (data.address == undefined)
+			var address = {address: data.result.formatted_address}
+		else
+			var address = {address: data.address}
+		socket.emit('position', address);
+		socket.to(socket.room_id).emit('position', address)
+		console.log(address);
 	})
 
 	  // when the user disconnects.. perform this

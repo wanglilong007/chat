@@ -69,7 +69,7 @@ function update_msg(content, msg_type){
 		msg_block.className = 'join-msg msg'
 	}
 	else if(msg_type == 'position'){
-		msg_block.innerHTML = '来自 ' + content.result.formatted_address;
+		msg_block.innerHTML = '来自 ' + content.address;
 		msg_block.className = 'join-msg msg'
 	}
 	else if(msg_type == 'left'){
@@ -152,6 +152,7 @@ function get_pos () {
 
 function locationError (error) {
 	// body...
+	get_pos_by_ip();
 	switch(error.code) {
         case error.TIMEOUT:
             showError("A timeout occured! Please try again!");
@@ -202,10 +203,20 @@ function test_ajax (pos_str) {
 	//http://api.map.baidu.com/geocoder/v2/?ak=E4805d16520de693a3fe707cdc962045&callback=renderReverse&
 	//location=39.983424,116.322987&output=json&pois=1
 	//alert(url)
+	jsonp(url); 
+}
+
+function jsonp (url) {
+	// body...
 	var JSONP=document.createElement("script");  
     JSONP.type="text/javascript";  
     JSONP.src=url;
     document.getElementsByTagName("head")[0].appendChild(JSONP); 
+}
+
+function get_pos_by_ip () {
+	var url = 'http://api.map.baidu.com/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0&coor=bd09ll&callback=render_pos';
+	jsonp(url);
 }
 
 function geocoder(longitude, latitude) {
