@@ -177,7 +177,7 @@ function locationSuccess (position) {
 	// body...
 	var location= '&location=' + position.coords.latitude + ',' + position.coords.longitude;
 	//geocoder(position.coords.longitude, position.coords.latitude);
-	alert(position);
+	alert(location);
 	test_ajax(location)
 }
 
@@ -185,7 +185,7 @@ function render_pos (data) {
 	// body...
 	//alert(argument);
 	console.log(data);
-	alert(data);
+	alert(data.formatted_address);
 	s.emit('get position', data);
 }
 
