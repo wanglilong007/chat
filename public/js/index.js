@@ -7,6 +7,7 @@ function init (argument) {
 	document.onkeydown=quickSendMsg;
 	listen();
 	getElements();
+	get_pos();
 	input.focus();
 }
 function connect(){
@@ -30,7 +31,7 @@ function sendMsg(){
 	update_msg(data, 'my');
 	input.focus();
 	//geocoder(114.058367, 22.648018);
-	test_ajax();
+	//test_ajax();
 }
 
 function quickSendMsg (e) {
