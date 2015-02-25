@@ -118,7 +118,7 @@ function member (socket_id, name, age, gender) {
 
 function get_pos () {
 	// body...
-	http.get('http://api.map.baidu.com/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0', function (res) {
+	http.get('http://api.map.baidu.com/location/ip?ak=WBzEkGTlsHIkTmjesRWvlZwW&ip=120.24.62.105', function (res) {
 		// body...
 		  console.log('STATUS: ' + res.statusCode);
 		  console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -151,7 +151,7 @@ io.on('connection', function(socket){
 		member.socket = socket;
 		//add the member to the room
 		room.join_member(member);
-		console.log(socket);
+		//console.log(socket);
 		member_info = {
 			msg: member.name,
 			room_num: room.get_member_num(),
