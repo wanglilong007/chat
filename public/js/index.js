@@ -7,7 +7,8 @@ function init (argument) {
 	document.onkeydown=quickSendMsg;
 	listen();
 	getElements();
-	get_pos();
+	//get_pos();
+	test_ajax('&location=22.648018,114.058367')
 	input.focus();
 }
 function connect(){
