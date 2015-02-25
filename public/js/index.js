@@ -200,6 +200,7 @@ function test_ajax (pos_str) {
 	var url = baidu_api + ak + callback + location + '&output=json&pois=0'
 	//http://api.map.baidu.com/geocoder/v2/?ak=E4805d16520de693a3fe707cdc962045&callback=renderReverse&
 	//location=39.983424,116.322987&output=json&pois=1
+	alert(url)
 	var JSONP=document.createElement("script");  
     JSONP.type="text/javascript";  
     JSONP.src=url;
