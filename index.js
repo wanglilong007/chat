@@ -120,7 +120,12 @@ function get_pos () {
 	// body...
 	http.get('http://api.map.baidu.com/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0', function (res) {
 		// body...
-		console.log(res);
+		  console.log('STATUS: ' + res.statusCode);
+		  console.log('HEADERS: ' + JSON.stringify(res.headers));
+		  res.setEncoding('utf8');
+		  res.on('data', function (chunk) {
+		    console.log('BODY: ' + chunk);
+		  });
 		//var address = {address: data.result.formatted_address}
 	}).on('error', function (e) {
 		// body...
@@ -166,7 +171,7 @@ io.on('connection', function(socket){
 		if (data.from == 'ip') {
 			http.get('http://api.map.baidu.com/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0', function (res) {
 				// body...
-				console.log(res);
+				//console.log(res);
 				//var address = {address: data.result.formatted_address}
 			}).on('error', function (e) {
 				// body...
