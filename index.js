@@ -183,20 +183,44 @@ io.on('connection', function(socket){
 	socket.on('get position', function (data) {
 		// body...
 		if (data.from == 'ip') {
-			http.get('http://api.map.baidu.com/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0', function (res) {
-				// body...
-				//console.log(res);
-				//var address = {address: data.result.formatted_address}
-			}).on('error', function (e) {
-				// body...
-				console.log(e.message);
-			})
+			var options = {
+			  hostname: 'api.map.baidu.com',
+			  port: 80,
+			  path: '/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0',
+			  method: 'GET',
+			  headers: {
+			    'Content-Type': 'application/json',
+			    'Referer': 'http://120.24.62.105:3000/'
+			  }
+			};
+
+			var req = http.request(options, function(res) {
+			  console.log('STATUS: ' + res.statusCode);
+			  console.log('HEADERS: ' + JSON.stringify(res.headers));
+			  res.setEncoding('utf8');
+			  res.on('data', function (chunk) {
+			    console.log('BODY: ' + chunk);
+			    var address = {address: chunk.address}
+				socket.emit('position', address);
+				socket.to(socket.room_id).emit('position', address)
+				console.log(address);
+			  });
+			});
+
+			req.on('error', function(e) {
+			  console.log('problem with request: ' + e.message);
+			});
+			// write data to request body
+			//req.write(postData);
+			req.end();
 		}	
-		else
+		else {
 			var address = {address: data.result.formatted_address}
-		socket.emit('position', address);
-		socket.to(socket.room_id).emit('position', address)
-		console.log(address);
+			socket.emit('position', address);
+			socket.to(socket.room_id).emit('position', address)
+			console.log(address);
+		}
+			
 	})
 
 	  // when the user disconnects.. perform this
