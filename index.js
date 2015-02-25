@@ -177,7 +177,7 @@ io.on('connection', function(socket){
 		socket.emit('number change', app_hotal.total_num);
 		socket.broadcast.emit('number change', app_hotal.total_num);
 		//console.log(member_info)
-		get_pos();
+		//get_pos();
 	})
 
 	socket.on('get position', function (data) {
@@ -202,8 +202,8 @@ io.on('connection', function(socket){
 			    console.log('BODY: ' + chunk);
 			    console.log(chunk.address);
 			    var address = {address: chunk.address}
-				socket.emit('position', address);
-				socket.to(socket.room_id).emit('position', address)
+				//socket.emit('position', address);
+				//socket.to(socket.room_id).emit('position', address)
 				console.log(address);
 			  });
 			});
