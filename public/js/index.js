@@ -69,7 +69,7 @@ function update_msg(content, msg_type){
 		msg_block.className = 'join-msg msg'
 	}
 	else if(msg_type == 'position'){
-		msg_block.innerHTML = '来自 ' + content.formatted_address;
+		msg_block.innerHTML = '来自 ' + content.result.formatted_address;
 		msg_block.className = 'join-msg msg'
 	}
 	else if(msg_type == 'left'){
@@ -171,7 +171,7 @@ function locationError (error) {
 function showError (error) {
 	// body...
 	console.log(error);
-	alert(error);
+	//alert(error);
 }
 
 function locationSuccess (position) {
@@ -186,7 +186,7 @@ function render_pos (data) {
 	// body...
 	//alert(argument);
 	console.log(data);
-	alert(data.formatted_address);
+	alert(data.result.formatted_address);
 	s.emit('get position', data);
 }
 
