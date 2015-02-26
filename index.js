@@ -166,7 +166,7 @@ io.on('connection', function(socket){
 		member.socket = socket;
 		//add the member to the room
 		room.join_member(member);
-		//console.log(socket);
+		console.log(socket);
 		member_info = {
 			msg: member.name,
 			room_num: room.get_member_num(),
@@ -206,7 +206,7 @@ io.on('connection', function(socket){
 			    var address = {address: data.address}
 				socket.emit('position', address);
 				socket.to(socket.room_id).emit('position', address)
-				//console.log(address);
+				console.log(address);
 			  });
 			});
 
