@@ -108,3 +108,8 @@ footer {
 	overflow: auto;
 }
 
+#type-info {
+	float: left;
+	color: green;
+}
+

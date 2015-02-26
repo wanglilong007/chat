@@ -223,6 +223,16 @@ io.on('connection', function(socket){
 			
 	})
 
+	socket.on('typing', function () {
+		// body...
+		socket.to(socket.room_id).emit('typing');
+	})
+
+	socket.on('stop typing', function () {
+		// body...
+		socket.to(socket.room_id).emit('stop typing');
+	})
+
 	  // when the user disconnects.. perform this
     socket.on('disconnect', function () {
     	if (socket.room_id == undefined) return;

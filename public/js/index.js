@@ -39,11 +39,13 @@ function sendMsg(){
 }
 
 function quickSendMsg (e) {
+	s.emit('typing');
 	var currKey = 0;
 	var et = e || window.event ;
 　　 currKey=et.keyCode||et.which||et.charCode;
-　　 var keyName = String.fromCharCode(currKey);
-　　 //alert("按键码: " + currKey + " 字符: " + keyName); 
+　　 //var keyName = String.fromCharCode(currKey);
+　　 //alert("按键码: " + currKey + " 字符: " + keyName);
+	s.emit('stop typing');
 	if (currKey != 13) return;
     sendMsg();
 }
@@ -98,6 +100,7 @@ function getElements(){
 	input = document.getElementById('input-msg');
 	total_number = document.getElementById('total-number');
 	room_number = document.getElementById('room-number'); 
+	type_info = document.getElementById('type-info');
 }
 
 function update_online_number (data) {
@@ -108,6 +111,16 @@ function update_online_number (data) {
 function update_room_number (data) {
 	// body...
 	room_number.innerHTML = data;
+}
+
+function show_type_info () {
+	// body...
+	type_info.innerHTML = '正在输入...'
+}
+
+function hide_type_info () {
+	// body...
+	type_info.innerHTML = ''
 }
 
 function listen(){
@@ -135,6 +148,16 @@ function listen(){
 	s.on('position', function (data) {
 		// body...
 		update_msg(data, 'position');
+	})
+
+	s.on('typing', function () {
+		// body...
+		show_type_info();
+	})
+
+	s.on('stop typing', function () {
+		// body...
+		hide_type_info();
 	})
 }
 
