@@ -115,7 +115,7 @@ function update_room_number (data) {
 
 function show_type_info () {
 	// body...
-	type_info.innerHTML = '正在输入...'
+	type_info.innerHTML = '对方正在输入...'
 }
 
 function hide_type_info () {
