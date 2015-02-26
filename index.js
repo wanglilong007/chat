@@ -186,7 +186,7 @@ io.on('connection', function(socket){
 			var options = {
 			  hostname: 'api.map.baidu.com',
 			  port: 80,
-			  path: '/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0',
+			  path: '/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0&ip=120.24.62.105',
 			  method: 'GET',
 			  headers: {
 			    'Content-Type': 'application/json',
@@ -201,12 +201,12 @@ io.on('connection', function(socket){
 			  res.on('data', function (chunk) {
 			    //console.log('BODY: ' + chunk);
 			    data = JSON.parse(chunk)
-			    console.log(typeof data)
-			    console.log(data.address);
+			    //console.log(typeof data)
+			    //console.log(data.address);
 			    var address = {address: data.address}
-				//socket.emit('position', address);
-				//socket.to(socket.room_id).emit('position', address)
-				console.log(address);
+				socket.emit('position', address);
+				socket.to(socket.room_id).emit('position', address)
+				//console.log(address);
 			  });
 			});
 
