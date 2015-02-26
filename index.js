@@ -135,6 +135,7 @@ function get_pos () {
 	  res.setEncoding('utf8');
 	  res.on('data', function (chunk) {
 	    console.log('BODY: ' + chunk);
+	    console.log(chunk);
 	  });
 	});
 
@@ -198,7 +199,8 @@ io.on('connection', function(socket){
 			  console.log('HEADERS: ' + JSON.stringify(res.headers));
 			  res.setEncoding('utf8');
 			  res.on('data', function (chunk) {
-			    console.log('BODY: ' + chunk);
+			    //console.log('BODY: ' + chunk);
+			    console.log(chunk)
 			    console.log(chunk.address);
 			    var address = {address: chunk.address}
 				//socket.emit('position', address);
