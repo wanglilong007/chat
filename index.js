@@ -166,7 +166,7 @@ io.on('connection', function(socket){
 		member.socket = socket;
 		//add the member to the room
 		room.join_member(member);
-		console.log(socket);
+		//console.log(socket);
 		member_info = {
 			msg: member.name,
 			room_num: room.get_member_num(),
@@ -178,15 +178,20 @@ io.on('connection', function(socket){
 		socket.broadcast.emit('number change', app_hotal.total_num);
 		//console.log(member_info)
 		//get_pos();
+		console.log(socket.conn.remoteAddress)
+		//console.log(socket.client)
+		//console.log(handshake)
 	})
 
 	socket.on('get position', function (data) {
 		// body...
 		if (data.from == 'ip') {
+
+			var ip = socket.conn.remoteAddress;
 			var options = {
 			  hostname: 'api.map.baidu.com',
 			  port: 80,
-			  path: '/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0&ip=120.24.62.105',
+			  path: '/location/ip?ak=G7n5tzw3PunoezFUy1yG6XR0&ip=' + ip,
 			  method: 'GET',
 			  headers: {
 			    'Content-Type': 'application/json',
