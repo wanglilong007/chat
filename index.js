@@ -200,9 +200,10 @@ io.on('connection', function(socket){
 			  res.setEncoding('utf8');
 			  res.on('data', function (chunk) {
 			    //console.log('BODY: ' + chunk);
-			    console.log(typeof chunk)
-			    console.log(chunk.address);
-			    var address = {address: chunk.address}
+			    data = JSON.parse(chunk)
+			    console.log(typeof data)
+			    console.log(data.address);
+			    var address = {address: data.address}
 				//socket.emit('position', address);
 				//socket.to(socket.room_id).emit('position', address)
 				console.log(address);
