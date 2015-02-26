@@ -12,12 +12,15 @@ function init (argument) {
 	input.focus();
 }
 function connect(){
+	/*
 	var name = prompt('随便起个名字');
 	var pos = '';
 	if (name == null || name.trim() == '')
 		name = '无名'
+	*/
+	var name = '有人';
 	s = io();
-	s.emit('new user', {name: name, gender: 0, age: 23, position: pos});
+	s.emit('new user', {name: name});
 	init();
 }
 

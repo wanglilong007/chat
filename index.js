@@ -169,7 +169,6 @@ io.on('connection', function(socket){
 		member_info = {
 			msg: member.name,
 			room_num: room.get_member_num(),
-			position: member.position
 		}
 
 		socket.emit('user join', member_info)
@@ -239,7 +238,7 @@ io.on('connection', function(socket){
     	//console.log('removed the person')
     	//通知此人离开
     	member_info = {
-			msg: member[0].name,
+			msg: '对方',
 			room_num: room.get_member_num()
 		}
     	socket.to(room_number).emit('user left', member_info);
